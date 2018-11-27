@@ -3,6 +3,9 @@ const EventEmitter = require('events').EventEmitter;
 class LDJClient extends EventEmitter {
     constructor(stream) {
         super(); 
+        if (stream === null) {
+            throw Error("Stream is null!"); 
+        }
         let buffer = '';
         stream.on('data', data => {
             buffer += data;
