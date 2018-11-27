@@ -1,3 +1,4 @@
+'use strict'; 
 const EventEmitter = require('events').EventEmitter; 
 class LDJClient extends EventEmitter {
     constructor(stream) {
@@ -14,4 +15,12 @@ class LDJClient extends EventEmitter {
             }
         });
     }
+
+    static connect(stream) {
+        return new LDJClient(stream); 
+    }
 }
+
+
+
+module.exports = LDJClient; 
