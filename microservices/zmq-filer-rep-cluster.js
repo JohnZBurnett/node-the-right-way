@@ -1,7 +1,7 @@
 
 'use strict';
 
-const clutster = require('cluster'); 
+const cluster = require('cluster'); 
 const fs = require('fs'); 
 const zmq = require('zeromq'); 
 
