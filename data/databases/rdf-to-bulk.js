@@ -16,4 +16,8 @@ dir.readFiles(dirname, options, (err, content, next) => {
     console.log(JSON.stringify({ index: { _id: `pg${doc.id}` }})); 
     console.log(JSON.stringify(doc)); 
     next(); 
+});
+
+process.stdout.on('error', err => {
+    process.exit(); 
 })
