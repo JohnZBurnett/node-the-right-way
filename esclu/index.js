@@ -82,6 +82,35 @@ program
       const path = program.json ? '_all':'_cat/indices?v';
       request({url: fullUrl(path), json: program.json}, handleResponse);
   }); 
+
+  program
+   .command('bulk <file>')
+   .description('read and perform bulk options from the specified file')
+   .action( file => {
+       fs.stat(file, (err, stats) => {
+           if (err) {
+               if (program.json){
+                   console.log(JSON.stringify(err));
+                   return; 
+               }
+               throw err; 
+           }
+
+           const options = {
+               url: fullUrl('_bulk'),
+               json: true,
+               headers: {
+                   'content-length': stats.size, 
+                   'content-type': 'application/json'
+               }
+           }; 
+
+           const req = request.post(options); 
+           const stream = fs.createReadStream(file);
+           stream.pipe(req); 
+           req.pipe(process.stdout); 
+       }); 
+   }); 
   
 program.parse(process.argv);
 
