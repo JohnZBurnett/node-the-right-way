@@ -72,7 +72,16 @@ program
               console.log(body); 
           }
       })
-  })
+  });
+
+program
+  .command('list-indices')
+  .alias('li')
+  .description('get a list of indices in this cluster')
+  .action( () => {
+      const path = program.json ? '_all':'_cat/indices?v';
+      request({url: fullUrl(path), json: program.json}, handleResponse);
+  }); 
   
 program.parse(process.argv);
 
