@@ -6,6 +6,28 @@ const program = require('commander');
 const pkg = require('./package.json'); 
 
 
+const handleResponse = (err, res, body) => {
+    if (program.json) {
+        console.log(JSON.stringify(err || body));
+    } else {
+        if (err) throw err; 
+        console.log(body); 
+    }
+}; 
+
+program
+  .command('create-index')
+  .description('create an index')
+  .action( () => {
+      if (!program.index) {
+          const msg = 'No index specified! Use --index <name>';
+          if (!program.json) throw Error(msg); 
+          console.log(JSON.stringify({error:msg}));
+          return; 
+      }
+      request.put(fullUrl(), handleResponse); 
+  })
+  
 const fullUrl = (path='') => {
     let url = `http://${program.host}:${program.port}/`; 
     if (program.index) {
@@ -52,7 +74,6 @@ program
       })
   })
   
-
 program.parse(process.argv);
 
 if (!program.args.filter( arg => typeof arg === 'object').length) {
