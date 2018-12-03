@@ -49,7 +49,7 @@ program
   .option('-j, --json', 'format output as JSON')
   .option('-i, --index <name>', 'which index to use')
   .option('-t, --type <type>', 'default type for bulk operations')
-  .option('-f', '--filter <filter>', 'source filter for query results');
+  .option('-f --filter <filter>', 'source filter for query results');
   
 program
   .command('url [path]')
